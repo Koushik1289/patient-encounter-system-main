@@ -1,23 +1,22 @@
-from fastapi import FastAPI, Depends, Query
-from sqlalchemy.orm import Session
-from datetime import date
 from datetime import datetime, timedelta
+
+from fastapi import Depends, FastAPI, HTTPException, Query
+from sqlalchemy.orm import Session
+
 from src.database import Base, engine, get_db
-from fastapi import HTTPException
-
-
-# Schemas
-from src.schemas.patient import PatientCreate, PatientRead
-from src.schemas.doctor import DoctorCreate, DoctorRead
-from src.schemas.appointment import AppointmentCreate, AppointmentRead
-
-# Services
-from src.services.patient_service import create_patient, get_patient
-from src.services.doctor_service import create_doctor, get_doctor, deactivate_doctor
-from src.services.appointment_service import create_appointment
 
 # Models
 from src.models.appointment import KoushikAppointment as Appointment
+from src.schemas.appointment import AppointmentCreate, AppointmentRead
+from src.schemas.doctor import DoctorCreate, DoctorRead
+
+# Schemas
+from src.schemas.patient import PatientCreate, PatientRead
+from src.services.appointment_service import create_appointment
+from src.services.doctor_service import create_doctor, deactivate_doctor, get_doctor
+
+# Services
+from src.services.patient_service import create_patient, get_patient
 
 # --------------------------------------------------
 # CREATE APP
@@ -85,8 +84,6 @@ def deactivate_doctor_api(doctor_id: int, db: Session = Depends(get_db)):
 def create_appointment_api(payload: AppointmentCreate, db: Session = Depends(get_db)):
     return create_appointment(db, payload)
 
-
-from datetime import datetime, timedelta
 
 @app.get("/appointments", response_model=list[AppointmentRead])
 def list_appointments(

@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+
 from src.models.patient import KoushikPatient as Patient
 
 

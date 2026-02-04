@@ -1,7 +1,8 @@
-from sqlalchemy.orm import Session
 from fastapi import HTTPException
-from src.models.doctor import KoushikDoctor as Doctor
+from sqlalchemy.orm import Session
+
 from src.models.appointment import KoushikAppointment as Appointment
+from src.models.doctor import KoushikDoctor as Doctor
 
 
 def create_doctor(db: Session, data):

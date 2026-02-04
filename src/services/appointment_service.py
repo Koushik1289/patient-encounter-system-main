@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta, timezone
-from sqlalchemy.orm import Session
+
 from fastapi import HTTPException
+from sqlalchemy.orm import Session
 
 from src.models.appointment import KoushikAppointment as Appointment
 from src.models.doctor import KoushikDoctor as Doctor
@@ -20,9 +21,7 @@ def create_appointment(db: Session, data):
     end = start + timedelta(minutes=data.duration_minutes)
 
     existing_appointments = (
-        db.query(Appointment)
-        .filter(Appointment.doctor_id == data.doctor_id)
-        .all()
+        db.query(Appointment).filter(Appointment.doctor_id == data.doctor_id).all()
     )
 
     for appt in existing_appointments:

@@ -1,6 +1,5 @@
 from datetime import datetime, timedelta, timezone
 
-
 # ---------------------------------------------------
 # CREATE APPOINTMENT
 # ---------------------------------------------------
@@ -132,6 +131,7 @@ def test_reject_invalid_duration(client):
 # ---------------------------------------------------
 # LIST APPOINTMENTS BY DATE
 # ---------------------------------------------------
+
 
 def test_list_appointments_by_date(client):
     target_date = (datetime.now(timezone.utc) + timedelta(hours=1)).date()

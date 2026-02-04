@@ -17,37 +17,46 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="MEMS")
 
+
 @app.get("/")
 def root():
     return {"status": "running"}
+
 
 @app.get("/health")
 def health():
     return {"status": "UP"}
 
+
 @app.post("/patients", response_model=PatientRead, status_code=201)
 def create_patient_api(payload: PatientCreate, db: Session = Depends(get_db)):
     return create_patient(db, payload)
+
 
 @app.get("/patients/{patient_id}", response_model=PatientRead)
 def get_patient_api(patient_id: int, db: Session = Depends(get_db)):
     return get_patient(db, patient_id)
 
+
 @app.post("/doctors", response_model=DoctorRead, status_code=201)
 def create_doctor_api(payload: DoctorCreate, db: Session = Depends(get_db)):
     return create_doctor(db, payload)
+
 
 @app.get("/doctors/{doctor_id}", response_model=DoctorRead)
 def get_doctor_api(doctor_id: int, db: Session = Depends(get_db)):
     return get_doctor(db, doctor_id)
 
+
 @app.patch("/doctors/{doctor_id}/deactivate", response_model=DoctorRead)
 def deactivate_doctor_api(doctor_id: int, db: Session = Depends(get_db)):
     return deactivate_doctor(db, doctor_id)
 
+
 @app.post("/appointments", response_model=AppointmentRead, status_code=201)
 def create_appointment_api(payload: AppointmentCreate, db: Session = Depends(get_db)):
     return create_appointment(db, payload)
+
 
 @app.get("/appointments", response_model=list[AppointmentRead])
 def list_appointments(

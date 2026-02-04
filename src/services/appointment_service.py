@@ -19,9 +19,9 @@ def create_appointment(db: Session, data):
     start = data.start_time.replace(tzinfo=None)
     end = start + timedelta(minutes=data.duration_minutes)
 
-    existing = db.query(Appointment).filter(
-        Appointment.doctor_id == data.doctor_id
-    ).all()
+    existing = (
+        db.query(Appointment).filter(Appointment.doctor_id == data.doctor_id).all()
+    )
 
     for appt in existing:
         appt_start = appt.start_time

@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta, timezone
 from fastapi.testclient import TestClient
-from app.main import app
-from app.database import Base, engine
+from src.main import app
+from src.database import Base, engine
 
 client = TestClient(app)
 

@@ -1,6 +1,7 @@
 from datetime import datetime
 from pydantic import BaseModel, Field, validator
 
+
 class AppointmentCreate(BaseModel):
     patient_id: int
     doctor_id: int
@@ -8,10 +9,11 @@ class AppointmentCreate(BaseModel):
     duration_minutes: int = Field(..., ge=15)
 
     @validator("start_time")
-    def require_timezone(cls, v):
-        if v.tzinfo is None:
+    def require_timezone(cls, u):
+        if u.tzinfo is None:
             raise ValueError("Timezone required")
-        return v
+        return u
+
 
 class AppointmentRead(AppointmentCreate):
     id: int

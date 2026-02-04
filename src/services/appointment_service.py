@@ -29,7 +29,7 @@ def create_appointment(db: Session, data):
         appt_end = appt_start + timedelta(minutes=appt.duration_minutes)
 
         if start < appt_end and end > appt_start:
-            raise HTTPException(status_code=409, detail="Overlapping appointment")
+            raise HTTPException(status_code=409, detail="overlap appointment")
 
     appointment = Appointment(
         patient_id=data.patient_id,
